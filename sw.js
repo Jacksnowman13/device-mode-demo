@@ -1,4 +1,4 @@
-const CACHE = "device-mode-demo-v2";
+const CACHE = "device-mode-demo-v5";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => {

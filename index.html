@@ -42,11 +42,11 @@
     body::after {
       position: fixed;
       z-index: 20;
-      top: 11px;
+      top: 0;
       left: 50%;
-      width: 126px;
-      height: 37px;
-      border-radius: 22px;
+      width: 210px;
+      height: 32px;
+      border-radius: 0 0 20px 20px;
       background: #000;
       content: "";
       opacity: 0;
@@ -58,45 +58,70 @@
       opacity: 1;
     }
 
+    body.island::after {
+      top: 11px;
+      width: 126px;
+      height: 37px;
+      border-radius: 22px;
+    }
+
     .trust-banner {
       position: fixed;
       z-index: 10;
       top: 0;
       right: 0;
       left: 0;
-      display: grid;
-      grid-template-columns: 1fr 126px 1fr;
-      align-items: center;
       width: 100%;
-      min-height: 58px;
-      padding: 9px 14px 8px;
+      min-height: 46px;
+      padding: 0 14px;
       background: #f8dd3d;
       color: #1a1028;
-      font-size: clamp(14px, 4.5vw, 22px);
+      font-size: clamp(12px, 3.6vw, 20px);
       font-weight: 900;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.03em;
       line-height: 1;
       text-transform: uppercase;
     }
 
     .trust-banner span:first-child {
-      text-align: right;
+      position: absolute;
+      top: 10px;
+      right: calc(50% + 58px);
+      white-space: nowrap;
     }
 
     .trust-banner .not {
       position: absolute;
-      top: 10px;
+      top: -2px;
       left: 50%;
       width: 110px;
       color: #b91c1c;
-      font-size: 28px;
-      line-height: 38px;
+      font-size: 26px;
+      line-height: 34px;
       text-align: center;
       transform: translateX(-50%);
     }
 
     .trust-banner span:last-child {
-      text-align: left;
+      position: absolute;
+      top: 10px;
+      left: calc(50% + 58px);
+      white-space: nowrap;
+    }
+
+    body.island .trust-banner {
+      min-height: 58px;
+    }
+
+    body.island .trust-banner span:first-child,
+    body.island .trust-banner span:last-child {
+      top: 21px;
+    }
+
+    body.island .trust-banner .not {
+      top: 10px;
+      font-size: 28px;
+      line-height: 38px;
     }
 
     body.safe .trust-banner {
@@ -105,13 +130,22 @@
 
     main {
       display: grid;
-      min-height: calc(100vh - 58px);
-      padding: 102px 24px 150px;
+      min-height: calc(100vh - 46px);
+      padding: 88px 24px 150px;
       place-items: center;
       text-align: center;
     }
 
     body.safe main {
+      padding-top: calc(88px + env(safe-area-inset-top));
+    }
+
+    body.island main {
+      min-height: calc(100vh - 58px);
+      padding-top: 102px;
+    }
+
+    body.safe.island main {
       padding-top: calc(102px + env(safe-area-inset-top));
     }
 
@@ -242,9 +276,21 @@
 
     @media (max-width: 420px) {
       .trust-banner {
-        grid-template-columns: 1fr 116px 1fr;
         padding-right: 6px;
         padding-left: 6px;
+      }
+
+      .trust-banner span:first-child {
+        right: calc(50% + 52px);
+      }
+
+      .trust-banner span:last-child {
+        left: calc(50% + 52px);
+      }
+
+      .trust-banner .not {
+        width: 100px;
+        font-size: 26px;
       }
 
       main {
@@ -301,6 +347,7 @@
     const params = new URLSearchParams(location.search);
     document.body.classList.toggle("safe", params.has("safe"));
     document.body.classList.toggle("simulate-cutout", params.has("simulate"));
+    document.body.classList.toggle("island", params.has("island"));
 
     if ("virtualKeyboard" in navigator) {
       navigator.virtualKeyboard.overlaysContent = true;
