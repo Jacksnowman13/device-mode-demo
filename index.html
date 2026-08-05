@@ -141,6 +141,33 @@
       min-height: calc(100vh - 88px);
     }
 
+    .scroll-intro {
+      display: grid;
+      min-height: 105vh;
+      padding: 48px 24px;
+      place-items: center;
+      text-align: center;
+    }
+
+    .scroll-intro h1 {
+      max-width: 620px;
+      margin-bottom: 18px;
+    }
+
+    .scroll-intro p {
+      margin: 0;
+      color: #ddd6fe;
+      font-size: 18px;
+    }
+
+    .scroll-arrow {
+      display: block;
+      margin-top: 30px;
+      color: #f8dd3d;
+      font-size: 42px;
+      line-height: 1;
+    }
+
     .card {
       width: min(100%, 520px);
       padding: 30px 24px;
@@ -289,6 +316,15 @@
   </style>
 </head>
 <body>
+  <section class="scroll-intro">
+    <div>
+      <div class="brand">Totally Legit Finance</div>
+      <h1>Before you invest, read our promise.</h1>
+      <p>Scroll down. We put it somewhere completely trustworthy.</p>
+      <span class="scroll-arrow" aria-hidden="true">&darr;</span>
+    </div>
+  </section>
+
   <header class="trust-banner" aria-label="We will not scam you">
     <span>We will</span>
     <span class="not">not</span>
@@ -347,14 +383,14 @@
     if (params.has("test")) {
       document.body.classList.add("simulate-cutout");
       const island = params.has("island");
-      const targetScroll = island ? 0 : 14;
 
       requestAnimationFrame(() => {
-        window.scrollTo(0, targetScroll);
+        const banner = document.querySelector(".trust-banner");
+        const desiredBannerTop = island ? 0 : -14;
+        window.scrollTo(0, banner.offsetTop - desiredBannerTop);
         requestAnimationFrame(() => {
           const notRect = document.querySelector(".not").getBoundingClientRect();
-          const bannerRect =
-              document.querySelector(".trust-banner").getBoundingClientRect();
+          const bannerRect = banner.getBoundingClientRect();
           const cutout = island ?
               {left: (innerWidth - 126) / 2, right: (innerWidth + 126) / 2,
                 top: 11, bottom: 48} :
