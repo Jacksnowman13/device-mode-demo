@@ -1,0 +1,17 @@
+{
+  "name": "PrivacyFirst",
+  "short_name": "PrivacyFirst",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "background_color": "#100825",
+  "theme_color": "#6d28d9",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
