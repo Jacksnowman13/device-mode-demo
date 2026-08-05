@@ -334,7 +334,7 @@
 
     .direction-list {
       display: grid;
-      gap: 10px;
+      gap: 6px;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -342,21 +342,23 @@
 
     .direction {
       display: grid;
-      grid-template-columns: 38px 1fr auto;
+      grid-template-columns: 30px 1fr auto;
       align-items: center;
-      gap: 11px;
-      padding: 11px;
-      border-radius: 15px;
+      gap: 9px;
+      min-height: 43px;
+      padding: 6px 10px;
+      border-radius: 12px;
       background: #eff6ff;
     }
 
     .direction-number {
       display: grid;
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
       background: #2563eb;
       color: #fff;
+      font-size: 13px;
       font-weight: 900;
       place-items: center;
     }
@@ -369,21 +371,37 @@
     .direction small,
     .direction-distance {
       color: #64748b;
-      font-size: 12px;
+      font-size: 11px;
     }
 
-    .arrival-note {
+    .direction strong {
+      font-size: 13px;
+      line-height: 1.05;
+    }
+
+    .direction-critical {
       position: absolute;
       right: 22px;
-      bottom: 18px;
+      bottom: 0;
       left: 22px;
-      padding: 12px 14px;
-      border-radius: 14px;
+      min-height: 33px;
+      height: 33px;
+      padding-top: 2px;
+      padding-bottom: 2px;
       border: 2px solid #f97316;
       background: #fff7ed;
       color: #9a3412;
-      font-size: 14px;
-      font-weight: 900;
+    }
+
+    .direction-critical .direction-number {
+      width: 26px;
+      height: 26px;
+      background: #ea580c;
+    }
+
+    .direction-critical small,
+    .direction-critical .direction-distance {
+      color: #c2410c;
     }
 
     .traffic-banner {
@@ -658,8 +676,32 @@
           <span><strong>Take the second exit</strong><small>Follow signs for the waterfront</small></span>
           <span class="direction-distance">0.6 mi</span>
         </li>
+        <li class="direction">
+          <span class="direction-number">4</span>
+          <span><strong>Merge left</strong><small>Stay on Harbor Avenue</small></span>
+          <span class="direction-distance">0.9 mi</span>
+        </li>
+        <li class="direction">
+          <span class="direction-number">5</span>
+          <span><strong>Continue straight</strong><small>Pass the River District</small></span>
+          <span class="direction-distance">1.1 mi</span>
+        </li>
+        <li class="direction">
+          <span class="direction-number">6</span>
+          <span><strong>Keep right</strong><small>Use the station access road</small></span>
+          <span class="direction-distance">0.4 mi</span>
+        </li>
+        <li class="direction">
+          <span class="direction-number">7</span>
+          <span><strong>Turn left</strong><small>Waterfront Station entrance</small></span>
+          <span class="direction-distance">500 ft</span>
+        </li>
+        <li class="direction direction-critical">
+          <span class="direction-number">8</span>
+          <span><strong>Last exit before tunnel - keep right</strong></span>
+          <span class="direction-distance">200 ft</span>
+        </li>
       </ol>
-      <div class="arrival-note">Last exit before tunnel - keep right.</div>
     </section>
 
     <aside class="traffic-banner">
