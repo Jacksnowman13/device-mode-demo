@@ -66,13 +66,11 @@
     }
 
     .trust-banner {
-      position: fixed;
+      position: sticky;
       z-index: 10;
       top: 0;
-      right: 0;
-      left: 0;
       width: 100%;
-      min-height: 46px;
+      min-height: 76px;
       padding: 0 14px;
       background: #f8dd3d;
       color: #1a1028;
@@ -110,7 +108,7 @@
     }
 
     body.island .trust-banner {
-      min-height: 58px;
+      min-height: 76px;
     }
 
     body.island .trust-banner span:first-child,
@@ -126,27 +124,19 @@
 
     body.safe .trust-banner {
       top: env(safe-area-inset-top);
+      margin-top: env(safe-area-inset-top);
     }
 
     main {
       display: grid;
-      min-height: calc(100vh - 46px);
-      padding: 88px 24px 150px;
+      min-height: calc(100vh - 76px);
+      padding: 44px 24px 150px;
       place-items: center;
       text-align: center;
     }
 
-    body.safe main {
-      padding-top: calc(88px + env(safe-area-inset-top));
-    }
-
     body.island main {
-      min-height: calc(100vh - 58px);
-      padding-top: 102px;
-    }
-
-    body.safe.island main {
-      padding-top: calc(102px + env(safe-area-inset-top));
+      min-height: calc(100vh - 76px);
     }
 
     .card {
