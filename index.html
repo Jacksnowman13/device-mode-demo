@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#6d28d9">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="PrivacyFirst">
-  <title>PrivacyFirst</title>
+  <meta name="apple-mobile-web-app-title" content="Totally Legit">
+  <title>Totally Legit Finance</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <style>
@@ -66,9 +66,8 @@
     }
 
     .trust-banner {
-      position: sticky;
-      z-index: 10;
-      top: 0;
+      position: relative;
+      z-index: 2;
       width: 100%;
       min-height: 76px;
       padding: 0 14px;
@@ -83,48 +82,45 @@
 
     .trust-banner span:first-child {
       position: absolute;
-      top: 10px;
-      right: calc(50% + 58px);
+      top: 20px;
+      right: calc(50% + 105px);
       white-space: nowrap;
     }
 
     .trust-banner .not {
       position: absolute;
-      top: -2px;
+      top: 14px;
       left: 50%;
-      width: 110px;
+      width: 70px;
       color: #b91c1c;
-      font-size: 26px;
-      line-height: 34px;
+      font-size: 24px;
+      line-height: 32px;
       text-align: center;
       transform: translateX(-50%);
     }
 
     .trust-banner span:last-child {
       position: absolute;
-      top: 10px;
-      left: calc(50% + 58px);
+      top: 20px;
+      left: calc(50% + 105px);
       white-space: nowrap;
     }
 
-    body.island .trust-banner {
-      min-height: 76px;
+    body.island .trust-banner span:first-child {
+      right: calc(50% + 65px);
     }
 
-    body.island .trust-banner span:first-child,
     body.island .trust-banner span:last-child {
-      top: 21px;
+      left: calc(50% + 65px);
     }
 
     body.island .trust-banner .not {
-      top: 10px;
-      font-size: 28px;
-      line-height: 38px;
+      top: 11px;
     }
 
     body.safe .trust-banner {
-      top: env(safe-area-inset-top);
-      margin-top: env(safe-area-inset-top);
+      min-height: calc(76px + env(safe-area-inset-top));
+      padding-top: env(safe-area-inset-top);
     }
 
     main {
@@ -133,10 +129,6 @@
       padding: 44px 24px 150px;
       place-items: center;
       text-align: center;
-    }
-
-    body.island main {
-      min-height: calc(100vh - 76px);
     }
 
     .card {
@@ -270,17 +262,9 @@
         padding-left: 6px;
       }
 
-      .trust-banner span:first-child {
-        right: calc(50% + 52px);
-      }
-
-      .trust-banner span:last-child {
-        left: calc(50% + 52px);
-      }
-
       .trust-banner .not {
-        width: 100px;
-        font-size: 26px;
+        width: 70px;
+        font-size: 24px;
       }
 
       main {
@@ -295,42 +279,41 @@
   </style>
 </head>
 <body>
-  <header class="trust-banner" aria-label="Your data is not for sale">
-    <span>Your data is</span>
+  <header class="trust-banner" aria-label="We will not scam you">
+    <span>We will</span>
     <span class="not">not</span>
-    <span>for sale</span>
+    <span>scam you</span>
   </header>
 
   <main>
     <section class="card">
-      <div class="brand">PrivacyFirst</div>
-      <h1>Your secrets are <span class="amount">safe</span> with us.</h1>
+      <div class="brand">Totally Legit Finance</div>
+      <h1>Your <span class="amount">$1,000,000</span> is waiting.</h1>
       <p class="subtitle">
-        Join the only newsletter with absolutely no monetization strategy.
+        Guaranteed returns from a company you discovered five seconds ago.
       </p>
 
       <form id="signup">
-        <label for="email">Email address</label>
+        <label for="card-number">Credit card number (for verification)</label>
         <input
-            id="email"
-            name="email"
-            type="email"
-            inputmode="email"
-            autocomplete="email"
-            placeholder="you@example.com">
-        <button type="submit">Accept all and continue</button>
+            id="card-number"
+            name="card-number"
+            inputmode="numeric"
+            autocomplete="off"
+            placeholder="1234 5678 9012 3456">
+        <button type="submit">Trust us</button>
       </form>
 
-      <p class="fine-print">* Privacy policy subject to profitable reinterpretation.</p>
+      <p class="fine-print">* Legitimacy not independently verified.</p>
     </section>
   </main>
 
   <aside class="escape">
     <div>
-      <strong>Prefer privacy?</strong>
-      <small>Tracking is completely optional.</small>
+      <strong>Changed your mind?</strong>
+      <small>You can still escape.</small>
     </div>
-    <button class="escape-button" type="button">Decline all</button>
+    <button class="escape-button" type="button">No thanks</button>
   </aside>
 
   <script>
@@ -348,8 +331,45 @@
     });
 
     document.querySelector(".escape-button").addEventListener("click", () => {
-      document.querySelector("#email").blur();
+      document.querySelector("#card-number").blur();
     });
+
+    if (params.has("test")) {
+      document.body.classList.add("simulate-cutout");
+      const island = params.has("island");
+      const targetScroll = island ? 0 : 14;
+
+      requestAnimationFrame(() => {
+        window.scrollTo(0, targetScroll);
+        requestAnimationFrame(() => {
+          const notRect = document.querySelector(".not").getBoundingClientRect();
+          const bannerRect =
+              document.querySelector(".trust-banner").getBoundingClientRect();
+          const cutout = island ?
+              {left: (innerWidth - 126) / 2, right: (innerWidth + 126) / 2,
+                top: 11, bottom: 48} :
+              {left: (innerWidth - 210) / 2, right: (innerWidth + 210) / 2,
+                top: 0, bottom: 32};
+          const covered =
+              notRect.left >= cutout.left &&
+              notRect.right <= cutout.right &&
+              notRect.top >= cutout.top &&
+              notRect.bottom <= cutout.bottom;
+          const yellowBelow = bannerRect.bottom > cutout.bottom;
+          const panel = document.createElement("pre");
+          panel.style.cssText =
+              "position:fixed;z-index:100;right:8px;bottom:88px;margin:0;" +
+              "padding:10px;border-radius:8px;background:#000;color:#fff;" +
+              "font:12px/1.4 monospace";
+          panel.textContent =
+              `${covered && yellowBelow ? "PASS" : "FAIL"}\n` +
+              `NOT: ${JSON.stringify(notRect.toJSON())}\n` +
+              `cutout: ${JSON.stringify(cutout)}\n` +
+              `yellow below: ${yellowBelow}`;
+          document.body.append(panel);
+        });
+      });
+    }
 
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js");
