@@ -1,11 +1,11 @@
 {
-  "name": "Totally Legit Finance",
-  "short_name": "Totally Legit",
+  "name": "SafeRoute",
+  "short_name": "SafeRoute",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",
-  "background_color": "#100825",
-  "theme_color": "#6d28d9",
+  "background_color": "#dbeafe",
+  "theme_color": "#dbeafe",
   "icons": [
     {
       "src": "./icon.svg",

@@ -1,4 +1,5 @@
 const CACHE = "device-mode-demo-v10";
+const BUILD = "saferoute-map-demo";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => {
