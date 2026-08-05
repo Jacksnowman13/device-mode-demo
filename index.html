@@ -99,13 +99,24 @@
     .top-controls {
       position: fixed;
       z-index: 5;
-      top: calc(var(--safe-top) + 12px);
-      right: calc(var(--safe-right) + 12px);
-      left: calc(var(--safe-left) + 12px);
+      top: 0;
+      right: 0;
+      left: 0;
       display: grid;
       grid-template-columns: 48px 1fr 48px;
+      align-items: end;
       gap: 10px;
-      transition: top 180ms ease, right 180ms ease, left 180ms ease;
+      height: calc(72px + var(--safe-top));
+      padding:
+        calc(var(--safe-top) + 12px)
+        calc(var(--safe-right) + 12px)
+        12px
+        calc(var(--safe-left) + 12px);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.12);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 12px 34px rgba(30, 64, 175, 0.18);
+      backdrop-filter: blur(18px);
+      transition: height 180ms ease, padding 180ms ease;
     }
 
     .round-button,
@@ -226,6 +237,110 @@
       color: #64748b;
     }
 
+    .trip-panel {
+      position: fixed;
+      z-index: 4;
+      top: 72px;
+      right: 12px;
+      bottom: 104px;
+      left: 12px;
+      overflow: hidden;
+      padding: 22px;
+      border: 1px solid rgba(31, 41, 55, 0.12);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.93);
+      box-shadow: 0 16px 40px rgba(30, 64, 175, 0.16);
+      backdrop-filter: blur(18px);
+      transition: top 180ms ease, right 180ms ease, bottom 180ms ease,
+        left 180ms ease;
+    }
+
+    body.fixed-layout .trip-panel {
+      top: calc(72px + var(--safe-top));
+      right: calc(12px + var(--safe-right));
+      bottom:
+        calc(104px + var(--safe-bottom) + var(--keyboard-height));
+      left: calc(12px + var(--safe-left));
+    }
+
+    .trip-eyebrow {
+      margin: 0 0 8px;
+      color: #2563eb;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .trip-heading {
+      max-width: 430px;
+      margin: 0;
+      font-size: clamp(25px, 7vw, 34px);
+      letter-spacing: -0.04em;
+      line-height: 1.03;
+    }
+
+    .trip-summary {
+      max-width: 470px;
+      margin: 12px 0 20px;
+      color: #64748b;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .direction-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .direction {
+      display: grid;
+      grid-template-columns: 38px 1fr auto;
+      align-items: center;
+      gap: 11px;
+      padding: 11px;
+      border-radius: 15px;
+      background: #eff6ff;
+    }
+
+    .direction-number {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: #2563eb;
+      color: #fff;
+      font-weight: 900;
+      place-items: center;
+    }
+
+    .direction strong,
+    .direction small {
+      display: block;
+    }
+
+    .direction small,
+    .direction-distance {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .arrival-note {
+      position: absolute;
+      right: 22px;
+      bottom: 18px;
+      left: 22px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
     .traffic-banner {
       position: fixed;
       z-index: 3;
@@ -267,16 +382,22 @@
     .route-card {
       position: fixed;
       z-index: 5;
-      right: calc(var(--safe-right) + 12px);
-      bottom: calc(max(var(--safe-bottom), var(--keyboard-height)) + 12px);
-      left: calc(var(--safe-left) + 12px);
+      right: 0;
+      bottom: var(--keyboard-height);
+      left: 0;
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: center;
       gap: 16px;
-      padding: 18px;
-      border-radius: 24px;
-      transition: right 180ms ease, bottom 180ms ease, left 180ms ease;
+      height: calc(104px + var(--safe-bottom));
+      padding:
+        18px
+        calc(var(--safe-right) + 18px)
+        calc(var(--safe-bottom) + 18px)
+        calc(var(--safe-left) + 18px);
+      border-radius: 24px 24px 0 0;
+      transition: height 180ms ease, padding 180ms ease,
+        bottom 180ms ease;
     }
 
     .route-label {
@@ -350,15 +471,14 @@
     }
 
     @media (min-width: 700px) and (min-height: 700px) {
-      .top-controls,
-      .route-card {
-        right: max(calc(var(--safe-right) + 20px), calc((100vw - 520px) / 2));
-        left: max(calc(var(--safe-left) + 20px), calc((100vw - 520px) / 2));
-      }
-
       .suggestions {
         right: max(calc(var(--safe-right) + 78px), calc((100vw - 404px) / 2));
         left: max(calc(var(--safe-left) + 78px), calc((100vw - 404px) / 2));
+      }
+
+      .trip-panel {
+        right: max(20px, calc((100vw - 620px) / 2));
+        left: max(20px, calc((100vw - 620px) / 2));
       }
     }
 
@@ -457,6 +577,35 @@
       </div>
     </section>
 
+    <section class="trip-panel">
+      <p class="trip-eyebrow">Route preview</p>
+      <h1 class="trip-heading">
+        Continue through Downtown toward Waterfront Station
+      </h1>
+      <p class="trip-summary">
+        Follow the highlighted route. Traffic is moderate near the River
+        District.
+      </p>
+      <ol class="direction-list">
+        <li class="direction">
+          <span class="direction-number">1</span>
+          <span><strong>Head north</strong><small>Continue past Central Park</small></span>
+          <span class="direction-distance">1.2 mi</span>
+        </li>
+        <li class="direction">
+          <span class="direction-number">2</span>
+          <span><strong>Turn right</strong><small>Martin Luther King Jr. Boulevard</small></span>
+          <span class="direction-distance">2.8 mi</span>
+        </li>
+        <li class="direction">
+          <span class="direction-number">3</span>
+          <span><strong>Take the second exit</strong><small>Follow signs for the waterfront</small></span>
+          <span class="direction-distance">0.6 mi</span>
+        </li>
+      </ol>
+      <div class="arrival-note">Arrive at Waterfront Station on your left.</div>
+    </section>
+
     <aside class="traffic-banner">
       <strong>Heavy traffic ahead.</strong>
       Continue on Martin Luther King Jr. Boulevard toward Waterfront Station.
@@ -495,6 +644,7 @@
     document.body.classList.toggle("simulate-iphone", params.has("simulate"));
     document.body.classList.toggle("simulate-keyboard", params.has("keyboard"));
     document.body.classList.toggle("force-zero", params.has("zero"));
+    document.body.classList.toggle("fixed-layout", params.has("fixed"));
     document.body.classList.toggle(
         "show-debug", params.has("debug") || params.has("test"));
 
@@ -506,6 +656,7 @@
     const metrics = document.querySelector(".metrics");
     const topControls = document.querySelector(".top-controls");
     const routeCard = document.querySelector(".route-card");
+    const tripPanel = document.querySelector(".trip-panel");
 
     function px(value) {
       return Math.round(Number.parseFloat(value) || 0);
@@ -522,7 +673,11 @@
       };
       const topRect = topControls.getBoundingClientRect();
       const routeRect = routeCard.getBoundingClientRect();
+      const tripRect = tripPanel.getBoundingClientRect();
       const routeBottomGap = Math.round(innerHeight - routeRect.bottom);
+      const topOverlap = Math.max(0, Math.round(topRect.bottom - tripRect.top));
+      const bottomOverlap =
+          Math.max(0, Math.round(tripRect.bottom - routeRect.top));
       const landscape = innerWidth > innerHeight;
       const routeTitle = document.querySelector(".route-title");
       const titleStyle = getComputedStyle(routeTitle);
@@ -537,15 +692,20 @@
         const expectedSide =
             params.has("simulate") && landscape ? 59 : 0;
         const expectedKeyboard = params.has("keyboard") ? 320 : 0;
+        const expectedTopOverlap =
+            params.has("fixed") ? 0 : expectedTop;
+        const expectedBottomOverlap =
+            params.has("fixed") ? 0 :
+            expectedBottom + expectedKeyboard;
         const pass =
             values.top === expectedTop &&
             values.right === expectedSide &&
             values.bottom === expectedBottom &&
             values.left === expectedSide &&
             values.keyboard === expectedKeyboard &&
-            Math.round(topRect.top) === expectedTop + 12 &&
-            Math.round(topRect.left) === expectedSide + 12 &&
-            routeBottomGap === Math.max(expectedBottom, expectedKeyboard) + 12;
+            topOverlap === expectedTopOverlap &&
+            bottomOverlap === expectedBottomOverlap &&
+            routeBottomGap === expectedKeyboard;
         result = `${pass ? "PASS" : "FAIL"}\n`;
       }
 
@@ -554,7 +714,8 @@
           `safe sides: ${values.left}px / ${values.right}px\n` +
           `safe bottom: ${values.bottom}px\n` +
           `keyboard: ${values.keyboard}px\n` +
-          `search y: ${Math.round(topRect.top)}px\n` +
+          `top overlap: ${topOverlap}px\n` +
+          `bottom overlap: ${bottomOverlap}px\n` +
           `route gap: ${routeBottomGap}px\n` +
           `route lines: ${routeLines}`;
     }
@@ -567,7 +728,18 @@
     requestAnimationFrame(updateMetrics);
 
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js");
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        for (const registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+    if ("caches" in window) {
+      caches.keys().then(keys => {
+        for (const key of keys) {
+          caches.delete(key);
+        }
+      });
     }
   </script>
 </body>

@@ -1,21 +1,20 @@
-const CACHE = "device-mode-demo-v10";
-const BUILD = "saferoute-landscape-pressure-demo";
-const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
-
-self.addEventListener("install", event => {
-  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
+self.addEventListener("install", () => {
   self.skipWaiting();
 });
 
 self.addEventListener("activate", event => {
   event.waitUntil(
       caches.keys()
-          .then(keys => Promise.all(
-              keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
-          .then(() => self.clients.claim()));
+          .then(keys => Promise.all(keys.map(key => caches.delete(key))))
+          .then(() => self.registration.unregister())
+          .then(() => self.clients.matchAll())
+          .then(clients => {
+            for (const client of clients) {
+              client.navigate(client.url);
+            }
+          }));
 });
 
 self.addEventListener("fetch", event => {
-  event.respondWith(
-      caches.match(event.request).then(cached => cached || fetch(event.request)));
+  event.respondWith(fetch(event.request));
 });
