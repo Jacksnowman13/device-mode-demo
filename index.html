@@ -837,6 +837,7 @@
 
     const probe = document.querySelector(".inset-probe");
     const metrics = document.querySelector(".metrics");
+    const app = document.querySelector(".app");
     const topControls = document.querySelector(".top-controls");
     const routeCard = document.querySelector(".route-card");
     const tripPanel = document.querySelector(".trip-panel");
@@ -857,10 +858,22 @@
       const topRect = topControls.getBoundingClientRect();
       const routeRect = routeCard.getBoundingClientRect();
       const tripRect = tripPanel.getBoundingClientRect();
+      const appRect = app.getBoundingClientRect();
       const routeBottomGap = Math.round(innerHeight - routeRect.bottom);
       const topOverlap = Math.max(0, Math.round(topRect.bottom - tripRect.top));
       const bottomOverlap =
           Math.max(0, Math.round(tripRect.bottom - routeRect.top));
+      const visibleTop = Math.max(topRect.bottom, tripRect.top);
+      const visibleBottom = Math.min(routeRect.top, tripRect.bottom);
+      const visibleDirections = [...document.querySelectorAll(".direction")]
+          .filter(direction => {
+            const rect = direction.getBoundingClientRect();
+            const visibleHeight =
+                Math.max(0, Math.min(rect.bottom, visibleBottom) -
+                    Math.max(rect.top, visibleTop));
+            return visibleHeight >= rect.height * 0.8;
+          })
+          .length;
       const landscape = innerWidth > innerHeight;
       const routeTitle = document.querySelector(".route-title");
       const titleStyle = getComputedStyle(routeTitle);
@@ -896,10 +909,20 @@
           `safe sides: ${values.left}px / ${values.right}px\n` +
           `safe bottom: ${values.bottom}px\n` +
           `keyboard: ${values.keyboard}px\n` +
+          `layout viewport: ${innerWidth}x${innerHeight}\n` +
+          `visual viewport: ${Math.round(visualViewport?.width ?? innerWidth)}x` +
+          `${Math.round(visualViewport?.height ?? innerHeight)}\n` +
+          `screen: ${screen.width}x${screen.height}\n` +
+          `app height: ${Math.round(appRect.height)}px\n` +
+          `display: ${
+              matchMedia("(display-mode: standalone)").matches ||
+                  navigator.standalone ? "standalone" : "browser"}\n` +
+          `visible steps: ${visibleDirections}/8\n` +
           `top overlap: ${topOverlap}px\n` +
           `bottom overlap: ${bottomOverlap}px\n` +
           `route gap: ${routeBottomGap}px\n` +
-          `route lines: ${routeLines}`;
+          `route lines: ${routeLines}\n` +
+          `font: ${getComputedStyle(document.body).fontFamily}`;
     }
 
     addEventListener("resize", updateMetrics);
