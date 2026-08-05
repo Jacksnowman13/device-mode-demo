@@ -107,15 +107,21 @@
     }
 
     body.island .trust-banner span:first-child {
+      top: 54px;
       right: calc(50% + 65px);
     }
 
     body.island .trust-banner span:last-child {
+      top: 54px;
       left: calc(50% + 65px);
     }
 
     body.island .trust-banner .not {
       top: 11px;
+    }
+
+    body.island .trust-banner {
+      min-height: 88px;
     }
 
     body.safe .trust-banner {
@@ -129,6 +135,10 @@
       padding: 44px 24px 150px;
       place-items: center;
       text-align: center;
+    }
+
+    body.island main {
+      min-height: calc(100vh - 88px);
     }
 
     .card {
