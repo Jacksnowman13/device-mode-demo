@@ -112,9 +112,9 @@
         calc(var(--safe-right) + 12px)
         12px
         calc(var(--safe-left) + 12px);
-      border-bottom: 1px solid rgba(31, 41, 55, 0.12);
-      background: rgba(255, 255, 255, 0.96);
-      box-shadow: 0 12px 34px rgba(30, 64, 175, 0.18);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      background: linear-gradient(135deg, #1d4ed8, #4338ca);
+      box-shadow: 0 12px 34px rgba(30, 64, 175, 0.34);
       backdrop-filter: blur(18px);
       transition: height 180ms ease, padding 180ms ease;
     }
@@ -136,6 +136,8 @@
       height: 48px;
       padding: 0;
       border-radius: 16px;
+      border-color: rgba(255, 255, 255, 0.42);
+      background: rgba(255, 255, 255, 0.94);
       color: #172033;
       place-items: center;
     }
@@ -153,9 +155,9 @@
     }
 
     .profile {
-      border: 2px solid #fff;
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
-      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.84);
+      background: #fde047;
+      color: #312e81;
       font-size: 14px;
       font-weight: 800;
     }
@@ -168,6 +170,8 @@
       height: 48px;
       padding: 0 14px;
       border-radius: 16px;
+      border-color: rgba(255, 255, 255, 0.42);
+      background: #fff;
       color: #64748b;
     }
 
@@ -272,6 +276,46 @@
       text-transform: uppercase;
     }
 
+    .route-alert {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 12px;
+      min-height: 58px;
+      margin: -22px -22px 18px;
+      padding: 11px 18px;
+      border-radius: 24px 24px 0 0;
+      background: #dc2626;
+      color: #fff;
+    }
+
+    .route-alert-icon {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #fff;
+      color: #b91c1c;
+      font-size: 21px;
+      font-weight: 900;
+      place-items: center;
+    }
+
+    .route-alert strong,
+    .route-alert span {
+      display: block;
+    }
+
+    .route-alert strong {
+      font-size: 15px;
+    }
+
+    .route-alert span {
+      margin-top: 2px;
+      color: #fee2e2;
+      font-size: 12px;
+    }
+
     .trip-heading {
       max-width: 430px;
       margin: 0;
@@ -335,10 +379,11 @@
       left: 22px;
       padding: 12px 14px;
       border-radius: 14px;
-      background: #dcfce7;
-      color: #166534;
+      border: 2px solid #f97316;
+      background: #fff7ed;
+      color: #9a3412;
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 900;
     }
 
     .traffic-banner {
@@ -395,14 +440,18 @@
         calc(var(--safe-right) + 18px)
         calc(var(--safe-bottom) + 18px)
         calc(var(--safe-left) + 18px);
+      border-color: #0f172a;
       border-radius: 24px 24px 0 0;
+      background: #0f172a;
+      box-shadow: 0 -14px 38px rgba(15, 23, 42, 0.32);
+      color: #fff;
       transition: height 180ms ease, padding 180ms ease,
         bottom 180ms ease;
     }
 
     .route-label {
       margin: 0 0 5px;
-      color: #64748b;
+      color: #93c5fd;
       font-size: 12px;
       font-weight: 800;
       letter-spacing: 0.08em;
@@ -421,7 +470,7 @@
 
     .route-meta {
       margin: 5px 0 0;
-      color: #64748b;
+      color: #cbd5e1;
       font-size: 14px;
     }
 
@@ -430,8 +479,8 @@
       padding: 0 19px;
       border: 0;
       border-radius: 17px;
-      background: #2563eb;
-      color: #fff;
+      background: #fde047;
+      color: #172033;
       font-weight: 800;
       white-space: nowrap;
     }
@@ -578,6 +627,13 @@
     </section>
 
     <section class="trip-panel">
+      <div class="route-alert">
+        <span class="route-alert-icon">!</span>
+        <span>
+          <strong>Road closed ahead</strong>
+          <span>Take Harbor Avenue instead</span>
+        </span>
+      </div>
       <p class="trip-eyebrow">Route preview</p>
       <h1 class="trip-heading">
         Continue through Downtown toward Waterfront Station
@@ -603,7 +659,7 @@
           <span class="direction-distance">0.6 mi</span>
         </li>
       </ol>
-      <div class="arrival-note">Arrive at Waterfront Station on your left.</div>
+      <div class="arrival-note">Last exit before tunnel - keep right.</div>
     </section>
 
     <aside class="traffic-banner">
