@@ -1,4 +1,4 @@
-const CACHE = "device-mode-demo-v1";
+const CACHE = "device-mode-demo-v2";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => {
@@ -7,7 +7,11 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+      caches.keys()
+          .then(keys => Promise.all(
+              keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
+          .then(() => self.clients.claim()));
 });
 
 self.addEventListener("fetch", event => {

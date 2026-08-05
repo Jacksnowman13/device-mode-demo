@@ -59,8 +59,11 @@
     }
 
     .trust-banner {
-      position: relative;
-      z-index: 2;
+      position: fixed;
+      z-index: 10;
+      top: 0;
+      right: 0;
+      left: 0;
       display: grid;
       grid-template-columns: 1fr 126px 1fr;
       align-items: center;
@@ -81,8 +84,15 @@
     }
 
     .trust-banner .not {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      width: 110px;
       color: #b91c1c;
+      font-size: 28px;
+      line-height: 38px;
       text-align: center;
+      transform: translateX(-50%);
     }
 
     .trust-banner span:last-child {
@@ -90,15 +100,19 @@
     }
 
     body.safe .trust-banner {
-      padding-top: max(9px, env(safe-area-inset-top));
+      top: env(safe-area-inset-top);
     }
 
     main {
       display: grid;
       min-height: calc(100vh - 58px);
-      padding: 44px 24px 150px;
+      padding: 102px 24px 150px;
       place-items: center;
       text-align: center;
+    }
+
+    body.safe main {
+      padding-top: calc(102px + env(safe-area-inset-top));
     }
 
     .card {
