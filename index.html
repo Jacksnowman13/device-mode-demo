@@ -742,7 +742,7 @@
     document.body.classList.toggle("simulate-iphone", params.has("simulate"));
     document.body.classList.toggle("simulate-keyboard", params.has("keyboard"));
     document.body.classList.toggle("force-zero", params.has("zero"));
-    document.body.classList.toggle("fixed-layout", params.has("fixed"));
+    document.body.classList.toggle("fixed-layout", !params.has("broken"));
     document.body.classList.toggle(
         "show-debug", params.has("debug") || params.has("test"));
 
@@ -790,11 +790,10 @@
         const expectedSide =
             params.has("simulate") && landscape ? 59 : 0;
         const expectedKeyboard = params.has("keyboard") ? 320 : 0;
-        const expectedTopOverlap =
-            params.has("fixed") ? 0 : expectedTop;
+        const fixedLayout = !params.has("broken");
+        const expectedTopOverlap = fixedLayout ? 0 : expectedTop;
         const expectedBottomOverlap =
-            params.has("fixed") ? 0 :
-            expectedBottom + expectedKeyboard;
+            fixedLayout ? 0 : expectedBottom + expectedKeyboard;
         const pass =
             values.top === expectedTop &&
             values.right === expectedSide &&
