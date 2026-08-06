@@ -913,6 +913,9 @@
 
     addEventListener("resize", updateMetrics);
     addEventListener("orientationchange", updateMetrics);
+    if (params.has("debug") || params.has("test")) {
+      addEventListener("scroll", updateMetrics, {passive: true});
+    }
     if ("virtualKeyboard" in navigator) {
       navigator.virtualKeyboard.addEventListener("geometrychange", updateMetrics);
     }
