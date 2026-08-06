@@ -335,9 +335,13 @@
     body.fixed-layout .trip-panel {
       top: calc(72px + var(--safe-top));
       right: calc(12px + var(--safe-right));
+      bottom: calc(104px + var(--safe-bottom));
+      left: calc(12px + var(--safe-left));
+    }
+
+    body.fixed-layout.keyboard-aware .trip-panel {
       bottom:
         calc(104px + var(--safe-bottom) + var(--keyboard-height));
-      left: calc(12px + var(--safe-left));
     }
 
     .trip-eyebrow {
@@ -509,7 +513,7 @@
       position: absolute;
       z-index: 5;
       right: 0;
-      bottom: var(--keyboard-height);
+      bottom: 0;
       left: 0;
       display: grid;
       grid-template-columns: 1fr auto;
@@ -528,6 +532,10 @@
       color: #fff;
       transition: height 180ms ease, padding 180ms ease,
         bottom 180ms ease;
+    }
+
+    body.keyboard-aware .route-card {
+      bottom: var(--keyboard-height);
     }
 
     .route-label {
@@ -812,6 +820,8 @@
     document.body.classList.toggle("simulate-keyboard", params.has("keyboard"));
     document.body.classList.toggle("force-zero", params.has("zero"));
     document.body.classList.toggle("fixed-layout", !params.has("broken"));
+    document.body.classList.toggle(
+        "keyboard-aware", params.has("keyboard-aware"));
     document.body.classList.toggle("test-mode", params.has("test"));
     document.body.classList.toggle(
         "show-debug", params.has("debug") || params.has("test"));
@@ -874,6 +884,8 @@
         const expectedSide =
             params.has("simulate") && landscape ? 59 : 0;
         const expectedKeyboard = params.has("keyboard") ? 320 : 0;
+        const expectedRouteGap =
+            params.has("keyboard-aware") ? expectedKeyboard : 0;
         const fixedLayout = !params.has("broken");
         const expectedTopOverlap = fixedLayout ? 0 : expectedTop;
         const expectedBottomOverlap =
@@ -886,7 +898,7 @@
             values.keyboard === expectedKeyboard &&
             topOverlap === expectedTopOverlap &&
             bottomOverlap === expectedBottomOverlap &&
-            routeBottomGap === expectedKeyboard;
+            routeBottomGap === expectedRouteGap;
         result = `${pass ? "PASS" : "FAIL"}\n`;
       }
 
