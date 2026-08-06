@@ -407,7 +407,7 @@
 
     .direction-list {
       display: grid;
-      gap: 6px;
+      gap: 7px;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -418,16 +418,16 @@
       grid-template-columns: 30px 1fr auto;
       align-items: center;
       gap: 9px;
-      min-height: 43px;
-      padding: 6px 10px;
+      min-height: 51px;
+      padding: 8px 10px;
       border-radius: 12px;
       background: #eff6ff;
     }
 
     .direction-number {
       display: grid;
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 9px;
       background: #2563eb;
       color: #fff;
@@ -453,22 +453,12 @@
     }
 
     .direction-critical {
-      position: absolute;
-      right: 22px;
-      bottom: 0;
-      left: 22px;
-      min-height: 33px;
-      height: 33px;
-      padding-top: 2px;
-      padding-bottom: 2px;
       border: 2px solid #f97316;
       background: #fff7ed;
       color: #9a3412;
     }
 
     .direction-critical .direction-number {
-      width: 26px;
-      height: 26px;
       background: #ea580c;
     }
 
@@ -774,13 +764,8 @@
           <span><strong>Keep right</strong><small>Use the station access road</small></span>
           <span class="direction-distance">0.4 mi</span>
         </li>
-        <li class="direction">
-          <span class="direction-number">7</span>
-          <span><strong>Turn left</strong><small>Waterfront Station entrance</small></span>
-          <span class="direction-distance">500 ft</span>
-        </li>
         <li class="direction direction-critical">
-          <span class="direction-number">8</span>
+          <span class="direction-number">7</span>
           <span><strong>Last exit before tunnel - keep right</strong></span>
           <span class="direction-distance">200 ft</span>
         </li>
@@ -874,6 +859,7 @@
             return visibleHeight >= rect.height * 0.8;
           })
           .length;
+      const totalDirections = document.querySelectorAll(".direction").length;
       const landscape = innerWidth > innerHeight;
       const routeTitle = document.querySelector(".route-title");
       const titleStyle = getComputedStyle(routeTitle);
@@ -917,7 +903,7 @@
           `display: ${
               matchMedia("(display-mode: standalone)").matches ||
                   navigator.standalone ? "standalone" : "browser"}\n` +
-          `visible steps: ${visibleDirections}/8\n` +
+          `visible steps: ${visibleDirections}/${totalDirections}\n` +
           `top overlap: ${topOverlap}px\n` +
           `bottom overlap: ${bottomOverlap}px\n` +
           `route gap: ${routeBottomGap}px\n` +
